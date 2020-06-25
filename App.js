@@ -1,19 +1,79 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack';
+import SignupScreen from './screens/SignupScreen';
+import LoginScreen from './screens/LoginScreen';
+import LoadingScreen from './screens/LoadingScreen';
+import HomeScreen from './screens/HomeScreen';
+import * as firebase from 'firebase'
+import {firebaseConfig} from './config'
 
-export default function App() {
+if(!firebase.apps.length)
+firebase.initializeApp(firebaseConfig)
+const Stack = createStackNavigator();
+
+ function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+      initialRouteName="Loading"
+      component={LoadingScreen}
+      >
+        <Stack.Screen 
+        name="Loading" 
+        component={LoadingScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: '#f4511e',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}/>
+                <Stack.Screen 
+        name="HomeScreen" 
+        component={HomeScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: '#f4511e',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}/>
+        <Stack.Screen 
+        name="Signup" 
+        component={SignupScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: '#f4511e',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+        />
+      <Stack.Screen 
+        name="Login" 
+        component={LoginScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: '#f4511e',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}/>
+      </Stack.Navigator>
+
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+export default App
